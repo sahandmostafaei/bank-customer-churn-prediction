@@ -17,6 +17,8 @@ from visualization import (
     plot_roc_curve,
 )
 
+from explainability import feature_importance
+
 
 def main():
 
@@ -73,6 +75,13 @@ def main():
             result["y_test"],
             result["probabilities"],
             name,
+        )
+
+    # Explain the Random Forest model
+    if "Random Forest" in results:
+
+        feature_importance(
+            results["Random Forest"]["pipeline"]
         )
 
     # Model comparison
