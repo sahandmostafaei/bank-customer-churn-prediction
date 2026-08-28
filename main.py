@@ -13,6 +13,8 @@ from model import train_models
 
 from visualization import (
     plot_target_distribution,
+    plot_confusion_matrix,
+    plot_roc_curve,
 )
 
 
@@ -58,22 +60,38 @@ def main():
         categorical_columns,
     )
 
-    print("\n" + "=" * 60)
-    print("MODEL TRAINING COMPLETE")
-    print("=" * 60)
+    # Create model visualizations
+    for name, result in results.items():
 
-    # Compare models
-    print("\nModel Comparison:")
+        plot_confusion_matrix(
+            result["y_test"],
+            result["predictions"],
+            name,
+        )
+
+        plot_roc_curve(
+            result["y_test"],
+            result["probabilities"],
+            name,
+        )
+
+    # Model comparison
+    print("\n" + "=" * 60)
+    print("MODEL COMPARISON")
+    print("=" * 60)
 
     for name, result in results.items():
 
         print(
             f"{name}: "
             f"Accuracy={result['accuracy']:.4f}, "
+            f"Precision={result['precision']:.4f}, "
+            f"Recall={result['recall']:.4f}, "
             f"F1={result['f1']:.4f}, "
             f"ROC-AUC={result['roc_auc']:.4f}"
         )
 
+    print("\nVisualizations saved in figures folder.")
     print("\nProject executed successfully.")
 
 
