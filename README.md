@@ -1,130 +1,107 @@
-# Bank Customer Churn Prediction & Retention Analytics
+# Bank Customer Churn Prediction
 
-## Overview
+A machine learning project that predicts customer churn for a banking dataset using multiple classification models and evaluates their performance with business-relevant metrics.
 
-This project applies machine learning and business analytics to predict customer churn in retail banking and identify the factors that influence customer retention.
+## Project Overview
 
-Using historical customer data, the project develops predictive models, evaluates model performance, and generates business insights that can support customer retention strategies.
+Customer churn is an important business problem for banks because retaining existing customers is generally more efficient than continuously acquiring new customers.
 
----
+This project builds an end-to-end machine learning workflow to:
 
-## Objectives
+- Load and clean customer data
+- Separate features and target variables
+- Identify numerical and categorical features
+- Apply appropriate preprocessing
+- Train multiple classification models
+- Evaluate model performance
+- Compare models using several metrics
+- Visualize classification performance
+- Analyze feature importance
 
-- Predict customer churn
-- Analyse customer behaviour
-- Identify key churn drivers
-- Compare machine learning models
-- Interpret model predictions
-- Generate business recommendations
+The project is implemented in Python using scikit-learn and follows a modular structure.
 
----
+## Machine Learning Models
 
-## Dataset
+Three classification models are evaluated:
 
-The analysis uses a retail banking customer dataset containing demographic, financial, and behavioural information including:
+1. **Logistic Regression**
+2. **Random Forest**
+3. **Gradient Boosting**
 
-- Credit Score
-- Geography
-- Gender
-- Age
-- Tenure
-- Balance
-- Number of Products
-- Credit Card Ownership
-- Active Membership
-- Estimated Salary
-- Customer Churn (Exited)
+Logistic Regression provides a simple linear baseline, while Random Forest and Gradient Boosting provide nonlinear tree-based approaches.
 
----
+## Data Preprocessing
 
-## Features
+The preprocessing workflow includes:
 
-- Data preprocessing
-- Missing value analysis
-- Exploratory Data Analysis
-- Feature engineering
-- Logistic Regression
-- Random Forest
-- Gradient Boosting
-- Model comparison
-- Confusion Matrix
-- ROC Curve
-- Feature Importance
-- Explainable AI
-- Business recommendations
+- Duplicate removal
+- Numerical feature identification
+- Categorical feature identification
+- Standard scaling for numerical variables
+- One-hot encoding for categorical variables
+- Handling of previously unseen categorical values
+- Stratified train/test splitting
 
----
+Preprocessing is implemented inside an `sklearn` pipeline to prevent data leakage between training and testing data.
 
-## Technologies
+## Model Evaluation
 
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Matplotlib
+The models are evaluated using:
 
----
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
 
-## Repository Structure
+ROC-AUC is calculated using predicted probabilities rather than hard class predictions.
+
+This is particularly useful for churn prediction because the probability of churn can be used to prioritize customers for retention campaigns.
+
+## Visualizations
+
+The project generates:
+
+- Customer churn distribution
+- Confusion matrix for each model
+- ROC curve for each model
+- Random Forest feature importance
+
+Generated figures are stored in the `figures/` directory.
+
+## Explainability
+
+Random Forest feature importance is used to identify the most influential features in the churn prediction model.
+
+The analysis helps connect machine learning results with potential business questions such as:
+
+- Which customer characteristics are associated with churn?
+- Which factors may help identify high-risk customers?
+- Where could customer-retention efforts be prioritized?
+
+Feature importance should be interpreted as model-based association rather than proof of causality.
+
+## Project Structure
 
 ```text
 bank-customer-churn-prediction/
-
+│
 ├── data/
+│   └── bank_churn.csv
+│
 ├── figures/
-
+│
+├── tests/
+│   ├── test_preprocessing.py
+│   └── test_model.py
+│
 ├── preprocessing.py
 ├── model.py
 ├── visualization.py
 ├── explainability.py
 ├── main.py
-
-├── PROJECT.md
-├── RESULTS.md
-├── ROADMAP.md
-├── CHANGELOG.md
-
 ├── requirements.txt
 ├── README.md
-```
-
----
-
-## Banking Applications
-
-This project demonstrates techniques applicable to:
-
-- Customer Retention
-- CRM Analytics
-- Retail Banking
-- Financial Analytics
-- Banking AI
-- Customer Lifetime Value
-- Decision Support Systems
-
----
-
-## Future Development
-
-- SHAP explanations
-- XGBoost
-- LightGBM
-- Customer segmentation
-- Interactive dashboard
-- Model deployment
-
----
-
-## Author
-
-**Sahand Mostafaei**
-
-Bachelor of Science in Electrical Engineering
-
-Interested in Banking Analytics, Artificial Intelligence, Financial Risk Management, and Data Science.
-
----
-
-## Disclaimer
-
-This project is intended for educational purposes and does not provide financial or commercial recommendations.
+├── PROJECT.md
+├── LICENSE
+└── .gitignore
