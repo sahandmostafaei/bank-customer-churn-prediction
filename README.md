@@ -1,25 +1,28 @@
 # Bank Customer Churn Prediction
 
-A machine learning project that predicts customer churn using banking customer data and compares multiple classification models.
+A machine-learning project that predicts customer churn using demographic, financial, and banking customer characteristics.
+
+The project demonstrates the application of supervised classification methods to a banking customer-retention problem, with emphasis on probability-based prediction, model comparison, and interpretation.
 
 ## Overview
 
-Customer churn is an important business problem for banks because retaining existing customers can be more cost-effective than acquiring new ones.
+Customer churn is an important analytical problem for banks because customer attrition can affect customer lifetime value, revenue, and retention strategy.
 
-This project develops a complete machine learning workflow to identify customers who are likely to leave the bank.
+This project develops a classification workflow to estimate the probability that a banking customer will churn.
 
-The project covers:
+The analysis covers:
 
-- Data preprocessing
-- Exploratory data analysis
-- Feature engineering
+- Data loading and cleaning
+- Exploratory analysis
+- Numerical and categorical feature handling
+- Feature scaling
+- Categorical encoding
 - Classification modelling
 - Model comparison
 - ROC-AUC evaluation
-- Churn probability prediction
+- Churn probability estimation
 - Feature importance analysis
 - Data visualization
-- Automated testing
 
 ## Technology Stack
 
@@ -28,25 +31,34 @@ The project covers:
 - NumPy
 - scikit-learn
 - Matplotlib
-- pytest
 
 ## Machine Learning Workflow
 
-Data
-→ Data Preprocessing
-→ Feature Engineering
-→ Train/Test Split
-→ Model Training
-→ Probability Prediction
-→ Model Evaluation
-→ Feature Importance
-→ Churn Analysis
+Customer Data
+      ↓
+Data Cleaning
+      ↓
+Feature / Target Separation
+      ↓
+Train-Test Split
+      ↓
+Numerical Scaling + Categorical Encoding
+      ↓
+Classification Models
+      ↓
+Probability Prediction
+      ↓
+Model Evaluation
+      ↓
+Feature Importance
+      ↓
+Interpretation
 
 ## Dataset
 
 The project uses customer-level banking data containing demographic, account, and financial characteristics.
 
-Example features include:
+Representative variables include:
 
 - Customer age
 - Geography
@@ -59,63 +71,72 @@ Example features include:
 - Credit card status
 - Active membership status
 
-The target variable represents whether the customer churned.
+The target variable is `Exited`, representing whether the customer churned.
 
-## Data Preprocessing
+## Data Processing
 
-The preprocessing pipeline handles:
+The preprocessing workflow:
 
-- Missing values
-- Numerical features
-- Categorical features
-- Feature scaling
-- Categorical encoding
-- Train/test splitting
+- Removes duplicate observations
+- Separates explanatory variables from the target
+- Identifies numerical variables
+- Identifies categorical variables
+- Standardizes numerical variables
+- One-hot encodes categorical variables
+- Preserves consistent transformations between training and prediction
 
-A scikit-learn preprocessing pipeline is used to keep data transformation consistent between training and prediction.
+The machine-learning preprocessing is implemented using scikit-learn's `ColumnTransformer` and `Pipeline`.
 
 ## Machine Learning Models
 
-The project compares several classification algorithms:
+The project compares three classification approaches.
 
 ### Logistic Regression
 
-Used as an interpretable baseline classification model.
+Logistic regression provides an interpretable baseline for binary classification and estimates the probability of customer churn.
 
 ### Random Forest
 
-An ensemble tree-based model used to capture nonlinear relationships between customer characteristics and churn.
+Random Forest is used to capture nonlinear relationships and interactions between customer characteristics.
 
 ### Gradient Boosting
 
-A boosting-based ensemble model used to improve predictive performance by combining multiple weak learners.
+Gradient Boosting is used as an additional nonlinear ensemble method for comparison with the linear baseline and Random Forest.
 
 ## Model Evaluation
 
-Models are evaluated using:
+The models are evaluated using:
 
+- Accuracy
+- Precision
+- Recall
+- F1 score
 - ROC-AUC
-- Classification performance
-- Churn probabilities
-- Feature importance
 
-ROC-AUC is used as an important evaluation metric because the objective is to distinguish customers who are likely to churn from customers who are likely to remain.
+ROC-AUC is particularly relevant because the model produces probability estimates and the analytical objective is to distinguish customers with different levels of estimated churn probability.
 
 ## Churn Probability
 
-The models generate probability estimates for individual customers.
+The classification models generate estimated churn probabilities for individual observations.
 
-These probabilities can be used to identify customers with higher estimated churn risk and support potential customer-retention strategies.
+These probabilities can be used analytically to:
+
+- Identify customers with elevated estimated churn risk
+- Segment customers by predicted risk
+- Examine characteristics associated with higher predicted churn probability
+- Support hypothetical customer-retention analysis
+
+The predictions are analytical outputs and should not be interpreted as production banking decisions.
 
 ## Explainability
 
-Tree-based models provide feature importance information that helps identify which customer characteristics contribute most strongly to predictions.
+Tree-based models provide feature-importance information that can be used to examine which variables contribute most strongly to model predictions.
 
-This provides an interpretable view of the model beyond prediction accuracy alone.
+This provides an additional interpretive layer beyond predictive performance metrics.
 
 ## Visualizations
 
-The project generates visualizations for model and business analysis, including:
+The project produces visualizations covering areas such as:
 
 - Churn distribution
 - Model performance
@@ -123,72 +144,77 @@ The project generates visualizations for model and business analysis, including:
 - Feature importance
 - Customer-level prediction analysis
 
-Generated figures are stored in the project visualization directory.
+Generated figures are stored in the `figures/` directory.
 
 ## Project Structure
 
-- `data/` — Dataset files
-- `src/` — Machine learning source code
-- `tests/` — Automated tests
-- `figures/` — Generated visualizations
-- `main.py` — Main analysis pipeline
-- `requirements.txt` — Python dependencies
-- `.gitignore` — Git configuration
-- `PROJECT.md` — Detailed project documentation
+bank-customer-churn-prediction/
+│
+├── data/
+│   └── dataset files
+│
+├── tests/
+│   └── test_model.py
+│
+├── figures/
+│   └── generated figures
+│
+├── preprocessing.py
+├── model.py
+├── visualization.py
+├── explainability.py
+├── main.py
+├── requirements.txt
+├── PROJECT.md
+├── RESULTS.md
+├── ROADMAP.md
+└── README.md
 
 ## Source Modules
 
 | Module | Purpose |
 |---|---|
-| `data_preprocessing.py` | Data cleaning and preprocessing |
-| `models.py` | Machine learning model definitions |
-| `evaluation.py` | Model evaluation |
-| `visualization.py` | Charts and visualizations |
-| `explainability.py` | Feature importance analysis |
-| `main.py` | End-to-end machine learning pipeline |
-
-## Testing
-
-The project includes automated tests using pytest.
-
-Tests cover key components of the machine learning workflow, including:
-
-- Data processing
-- Model training
-- Model prediction
-- Evaluation functionality
+| `preprocessing.py` | Data loading, cleaning, and feature/target separation |
+| `model.py` | Preprocessing pipelines, model training, prediction, and evaluation |
+| `visualization.py` | Data and model visualizations |
+| `explainability.py` | Feature-importance analysis |
+| `main.py` | Main analytical workflow |
 
 ## Key Skills Demonstrated
 
-This project demonstrates practical experience with:
-
-- Python programming
+- Python
 - pandas
 - NumPy
 - scikit-learn
-- Machine learning
-- Classification
+- Supervised machine learning
+- Binary classification
+- Probability estimation
 - Data preprocessing
-- Feature engineering
 - Model evaluation
-- Probability prediction
+- Feature analysis
 - Data visualization
-- Explainable machine learning
-- Software modularity
-- Automated testing
+- Financial and banking analytics
 
-## Business Application
+## Banking Application
 
-A bank could use a churn prediction system to:
+The project illustrates how machine-learning methods can be applied to customer analytics in a banking context.
 
-1. Identify customers with elevated churn probability.
+A hypothetical banking application could use predicted churn probabilities to:
+
+1. Identify customers with elevated estimated churn risk.
 2. Segment customers according to predicted risk.
-3. Investigate the characteristics associated with churn.
-4. Prioritize customer-retention activities.
+3. Examine characteristics associated with customer attrition.
+4. Develop hypothetical retention strategies.
 5. Monitor model performance over time.
+
+## Limitations
+
+This project is an analytical and educational implementation rather than a production banking system.
+
+Important practical considerations such as probability calibration, model monitoring, fairness assessment, temporal validation, economic cost functions, and deployment controls would require additional development before operational use.
 
 ## Disclaimer
 
-This project is intended for educational, research, and portfolio purposes only.
+This project is intended for educational, research, and portfolio purposes.
 
-The predictions generated by the project should not be interpreted as financial advice or as a production banking decision system.
+The model outputs should not be interpreted as financial advice or as a production banking decision system.
